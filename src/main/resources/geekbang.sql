@@ -31,17 +31,20 @@ create table geekbang.g_column_content
 (
     id                 bigint auto_increment
         primary key,
-    column_sku         int null comment '专栏id',
-    directory_id       int null comment '目录id',
+    column_sku         int          null comment '专栏id',
+    directory_id       int          null comment '目录id',
     audio_url          varchar(100) null comment '音频url',
     audio_title        varchar(100) null comment '音频标题',
-    audio_time         varchar(10) null comment '音频时间',
+    audio_time         varchar(10)  null comment '音频时间',
     audio_download_url varchar(100) null comment '音频下载url',
-    chapter_id         int null comment '章节id',
-    article_content    text null comment '文章详细内容',
+    chapter_id         int          null comment '章节id',
+    article_content    text         null comment '文章详细内容',
     article_title      varchar(100) null comment '文章标题',
-    article_sharetitle varchar(100) null comment '文章标题2'
-) comment '专栏文章内容';
+    article_sharetitle varchar(100) null comment '文章标题2',
+    constraint g_column_content_column_sku_directory_id_uindex
+        unique (column_sku, directory_id)
+)
+    comment '专栏文章内容';
 
 create table geekbang.g_column_content_fail
 (
