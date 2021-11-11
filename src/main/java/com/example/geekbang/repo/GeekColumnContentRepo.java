@@ -34,4 +34,16 @@ public class GeekColumnContentRepo {
         }
         return null;
     }
+
+    public GeekColumnContent selectBLOBsByColumnSkuAndDirectoryId(GeekColumnContent geekColumnDirectory) {
+        GeekColumnContentExample example = new GeekColumnContentExample();
+        example.createCriteria()
+                .andColumnSkuEqualTo(geekColumnDirectory.getColumnSku())
+                .andDirectoryIdEqualTo(geekColumnDirectory.getDirectoryId());
+        List<GeekColumnContent> contentList = geekColumnContentMapper.selectByExampleWithBLOBs(example);
+        if (CollectionUtil.isNotEmpty(contentList)) {
+            return contentList.get(0);
+        }
+        return null;
+    }
 }

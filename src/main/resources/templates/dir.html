@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>文章目录</title>
+</head>
+<body>
+<div>
+    <ol>
+        <li th:each="col:${directoryList}">
+            <a th:text="${col.articleTitle}" th:href="${col.url}"></a>
+        </li>
+    </ol>
+</div>
+</body>
+</html>

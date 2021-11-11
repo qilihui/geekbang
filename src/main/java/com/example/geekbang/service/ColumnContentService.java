@@ -41,6 +41,13 @@ public class ColumnContentService {
 
     private static final int STARTID = 0;
 
+    public GeekColumnContent getBySkuAndDir(Integer sku, Integer dir) {
+        GeekColumnContent content = new GeekColumnContent();
+        content.setColumnSku(sku);
+        content.setDirectoryId(dir);
+        return geekColumnContentRepo.selectBLOBsByColumnSkuAndDirectoryId(content);
+    }
+
     public void processAll() {
         List<GeekColumn> columnSkuList = geekColumnRepo.selectAll();
         columnSkuList = columnSkuList.stream().filter(geekColumn -> geekColumn.getColumnSku() >= STARTID).collect(Collectors.toList());

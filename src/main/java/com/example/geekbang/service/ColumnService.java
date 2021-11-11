@@ -44,6 +44,10 @@ public class ColumnService {
                 .collect(Collectors.toList());
     }
 
+    public List<GeekColumn> getAllColumn() {
+        return geekColumnRepo.selectAll();
+    }
+
     public void processAll() {
         log.info("ColumnService#processAll lableSkuList.size:{}", lableSkuList.size());
         for (LabelSku.Data.List list : lableSkuList) {

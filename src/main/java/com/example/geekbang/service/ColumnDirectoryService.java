@@ -31,6 +31,10 @@ public class ColumnDirectoryService {
     @Autowired
     private GeekColumnDirectoryRepo geekColumnDirectoryRepo;
 
+    public List<GeekColumnDirectory> getBySku(Integer sku) {
+        return geekColumnDirectoryRepo.selectByColumnSku(sku);
+    }
+
     public void processAll() {
         List<GeekColumn> columnSkuList = geekColumnRepo.selectAll();
         log.info("ColumnDirectoryService#processAll chapterList.size:{}", columnSkuList.size());
