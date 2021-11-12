@@ -48,6 +48,10 @@ public class ColumnService {
         return geekColumnRepo.selectAll();
     }
 
+    public GeekColumn getBySku(Integer sku) {
+        return geekColumnRepo.selectByColumnSku(sku);
+    }
+
     public void processAll() {
         log.info("ColumnService#processAll lableSkuList.size:{}", lableSkuList.size());
         for (LabelSku.Data.List list : lableSkuList) {

@@ -33,7 +33,7 @@ public class PageController {
     private final ColumnDirectoryService columnDirectoryService;
     private final ColumnContentService columnContentService;
 
-    private static final String DEFAULT_HTML = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Document</title></head><body>    %s</body></html>";
+    private static final String DEFAULT_HTML = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>%s</title></head><body>    %s</body></html>";
 
 
     @RequestMapping("/all")
@@ -46,6 +46,7 @@ public class PageController {
     @RequestMapping("/{sku}")
     public String getDirBySku(@PathVariable("sku") Integer sku, Model model) {
         List<GeekColumnDirectory> directoryList = columnDirectoryService.getBySku(sku);
+        GeekColumn column = columnService.getBySku(sku);
         List<GeekDirVo> collect = directoryList.stream().map(x -> {
             GeekDirVo vo = new GeekDirVo();
             vo.setArticleTitle(x.getArticleTitle());
@@ -53,6 +54,7 @@ public class PageController {
             return vo;
         }).collect(Collectors.toList());
         model.addAttribute("directoryList", collect);
+        model.addAttribute("title", column.getTitle());
         return "dir";
     }
 
@@ -61,9 +63,9 @@ public class PageController {
     public String getDirBySku(@PathVariable("sku") Integer sku, @PathVariable("dir") Integer dir) {
         GeekColumnContent content = columnContentService.getBySkuAndDir(sku, dir);
         if (Objects.isNull(content) || StringUtils.isEmpty(content.getArticleContent())) {
-            return String.format(DEFAULT_HTML, "页面是空的~~~");
+            return String.format(DEFAULT_HTML, "404", "页面是空的~~~");
         }
-        return String.format(DEFAULT_HTML, content.getArticleContent());
+        return String.format(DEFAULT_HTML, content.getArticleTitle(), content.getArticleContent());
     }
 
 }
